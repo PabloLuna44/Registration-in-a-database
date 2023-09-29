@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  guardar(): void {
+save(): void {
    
     this.personaService.savePersona(this.personaForm.value).subscribe(resp => {
       this.personaForm.reset();
