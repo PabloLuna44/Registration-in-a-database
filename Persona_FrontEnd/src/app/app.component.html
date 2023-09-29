@@ -1,0 +1,80 @@
+<!-- ngsubmit es el metodo que dice que va a hacer cuando se complete el formulario-->
+<div style="padding: 10%; ">
+
+
+    <h2 class="registro">Crear Persona</h2>
+    <form class="formularioRegistro" [formGroup]="personaForm" (ngSubmit)="guardar()">
+
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" formControlName="name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" formControlName="lastNames" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Edad</label>
+            <input type="number" formControlName="age" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Pais</label>
+            <!-- El select se utiliza para que nos muestre la lista de paises que ya tenemos en la base de datos-->
+            <select name="country" id="country" formControlName="country" class="form-control" >
+               <option [ngValue]="item" *ngFor="let item of countries">{{item.name}}</option>
+            </select>    
+        </div>
+
+        <div class="form-group">
+            <label>Estado</label>
+            <!-- El select se utiliza para que nos muestre la lista de paises que ya tenemos en la base de datos-->
+            <select name="city" id="city" formControlName="city" class="form-control"  >
+               <option [ngValue]="item" *ngFor="let item of cities">{{item.name}}</option>
+            </select>    
+        </div>
+<!-- El disable se utiliza por si el usuario no ha llenado el fromualrio no se pueda enviar  -->
+        <button type="submit" class="btn btn-primary"  [disabled]="personaForm.invalid">Guardar</button>
+    </form>
+</div>
+
+
+<div class="formularioRegistro">
+    <h2>Personas Registradas</h2>
+    <table class="table">
+
+<thead >
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Edad</th>
+        <th>Pais</th>
+        <th>Estado</th>
+        <th>Opciones</th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr *ngFor="let item of personas">
+
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.lastNames}}</td>
+        <td>{{item.age}}</td>
+        <td>{{item.country.name}}</td>
+        <td>{{item.city.name}}</td>
+        <td>
+            <button type="button" class="btn btn-success" (click)="modify(item)">Editar</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger" (click)="delete(item)">Eliminar</button>
+        </td>
+    </tr>
+</tbody>
+
+    </table>
+</div>
+
+
+
+<router-outlet></router-outlet>
